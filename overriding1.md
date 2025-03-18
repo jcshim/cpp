@@ -24,7 +24,7 @@ public:
 };
 
 int main() {
-    CDog* myPet = new CDog(); // 부모 타입의 포인터로 자식 객체 참조
+    CAnimal* myPet = new CDog(); // 부모 타입의 포인터로 자식 객체 참조
     myPet->Sound(); // "멍멍!" 출력 (오버라이딩 된 함수 호출)
     delete myPet;
     return 0;
