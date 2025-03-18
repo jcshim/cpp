@@ -22,8 +22,17 @@ public:
         cout << "멍멍!" << endl;
     }
 };
+class CCat : public CAnimal {
+public:
+    void Sound() override { // 부모의 sound()를 재정의
+        cout << "야옹!" << endl;
+    }
+};
 
 int main() {
+    CAnimal* myPet = new CCat(); // 부모 타입의 포인터로 자식 객체 참조
+    myPet->Sound(); // "야용!" 출력 (오버라이딩 된 함수 호출)
+    delete myPet;
     CAnimal* myPet = new CDog(); // 부모 타입의 포인터로 자식 객체 참조
     myPet->Sound(); // "멍멍!" 출력 (오버라이딩 된 함수 호출)
     delete myPet;
