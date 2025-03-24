@@ -9,6 +9,44 @@
 ```cpp
 #include <iostream>
 using namespace std;
+
+class P {
+protected:
+    int h, w;
+public:
+    P(int x, int y) : h(x), w(y) {}
+    virtual void A() = 0;
+};
+
+class T : public P {
+public:
+    T(int x, int y) : P(x, y) {}
+    void A() override {
+        cout << h * w / 2 << '\n';
+    }
+};
+
+class R : public P {
+public:
+    R(int x, int y) : P(x, y) {}
+    void A() override {
+        cout << h * w << '\n';
+    }
+};
+
+int main() {
+    P* p1 = new T(1, 2);
+    P* p2 = new R(1, 2);
+    p1->A();
+    p2->A();
+    delete p1;
+    delete p2;
+    return 0;
+}
+```
+```cpp
+#include <iostream>
+using namespace std;
 class CAnimal {
 public:
     virtual void Sound() { // virtual 키워드 사용
