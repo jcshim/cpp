@@ -6,6 +6,37 @@
 ✔ **같은 이름, 같은 매개변수, 다른 기능!**
 
 #### **2. 오버라이딩 예제**
+```cpp 삼각형과 사각형의 면적 계산
+#include <iostream>
+class CPoly{
+protected:
+    int h, w;
+public:
+    CPoly(int x, int y) : h(x), w(y) {}
+};
+class CTri : public CPoly {
+public:
+    CTri(int x, int y) : CPoly(x, y) {}
+    void Area() {
+        std::cout << (h * w / 2) << '\n';
+    }
+};
+class CRect : public CPoly {
+public:
+    CRect(int x, int y) : CPoly(x, y) {}
+    void Area() {
+        std::cout << (h * w) << '\n';
+    }
+};
+int main() {
+    CTri t(1, 2);
+    t.Area();
+    CRect r(1, 2);
+    r.Area();
+    return 0;
+}
+```
+
 ```cpp
 #include <iostream>
 using namespace std;
