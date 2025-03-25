@@ -43,6 +43,12 @@ double Add(double a, double b){
 }
 int main() {
     int a1(2), a2(3);
+    //short int 
+    //long int
+    // unsinged int
+    // unsinged long int
+    // float
+    // ......
     std::cout << Add(a1, a2) << '\n';
     double f1(2.2), f2(3.3);
     std::cout << Add(f1, f2) << '\n';
