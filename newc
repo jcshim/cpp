@@ -22,6 +22,17 @@ int main() {
     return 0;
 }
 ```
+### 동적 메모리 할당 및 활
+```
+#include <iostream>
+int main() {
+    int* ptr = new int;
+    *ptr = 10;
+    cout << *ptr;
+    delete ptr;
+    return 0;
+}
+```
 ### 범위기반 for 문
 ```
 #include <iostream>
