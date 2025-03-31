@@ -1,89 +1,182 @@
-좋아요! Visual Studio Code(이하 VS Code)를 Windows PC에서 **C++ 개발용**으로 가장 간단하게 세팅하고 사용하는 방법을 단계별로 알려줄게요. 초심자도 따라 할 수 있도록 쉽게 설명할게요 😊
+물론이죠! **초보자도 따라할 수 있도록** 아주 쉽게, **Visual Studio Community 설치부터 Visual Studio Code(이하 VS Code)에서 C++ 개발 환경을 설정하는 전체 과정을 단계별로 정리**해드릴게요 😊
 
 ---
 
-## ✅ 1. 필요한 것 설치하기
+# ✅ 1단계: Visual Studio Community 설치
 
-### ① **VS Code 설치**
-- [https://code.visualstudio.com](https://code.visualstudio.com) 에서 VS Code 다운로드 후 설치
-
-### ② **C++ 컴파일러 설치 (MinGW)**
-- [https://www.mingw-w64.org/](https://www.mingw-w64.org/) 또는 아래 사이트에서 설치 프로그램 다운로드  
-  👉 [MinGW-w64 Windows 설치](https://www.mingw-w64.org/downloads/)
-- 설치 시:
-  - Architecture: x86_64
-  - Threads: posix
-  - Exception: sjlj 또는 seh
-  - Build revision은 기본값 그대로
-- 설치 후, 예: `C:\Program Files\mingw-w64\...` 폴더 안에 `bin` 경로를 복사
-
-### ③ **환경 변수 설정**
-1. 윈도우 검색창에 **"환경 변수 편집"** 입력 → 클릭
-2. **시스템 변수**에서 `Path` 선택 → **편집**
-3. 아까 복사한 `...\bin` 경로를 **새로 추가**
-4. 적용 후 확인
+### 🎯 목적: C++ 컴파일러 설치 (MSVC)
 
 ---
 
-## ✅ 2. VS Code 세팅하기
+### ✔ 1. [Visual Studio Community](https://visualstudio.microsoft.com/ko/vs/community/) 사이트에 접속
 
-### ① **C++ 확장 설치**
-- VS Code 실행 → 왼쪽 사이드바 확장 아이콘(블럭 모양) 클릭
-- 검색창에 `C/C++` 입력 → Microsoft가 만든 것 설치  
-  (이름: **C/C++ by Microsoft**)
-
-### ② (선택) **Code Runner 확장 설치**
-- 여러 언어를 쉽게 실행할 수 있음 (초보자에게 추천)
-- 검색창에 `Code Runner` 입력 → 설치
+- 주소: https://visualstudio.microsoft.com/ko/vs/community/
+- 💡 무료 버전이므로 걱정 없이 설치 가능!
 
 ---
 
-## ✅ 3. 첫 C++ 파일 실행하기
+### ✔ 2. 설치 파일 다운로드 및 실행
 
-### ① 새 폴더 만들기 (예: `cpp-test`)
-- 해당 폴더를 VS Code로 열기 (File → Open Folder)
+- `무료 다운로드` 버튼 클릭 → 설치 프로그램 실행
 
-### ② 새 파일 만들기
-- 파일 이름: `hello.cpp`
+---
+
+### ✔ 3. 설치 구성 선택
+
+- 설치 화면에서 **"C++를 사용한 데스크톱 개발"** 선택 ✅  
+  (이게 C++ 컴파일러와 필수 도구를 포함함)
+- 오른쪽 아래에 있는 **“설치” 버튼 클릭**
+
+---
+
+### ✔ 4. 설치 완료 후 재부팅 (필요시)
+
+- 설치가 완료되면 재부팅을 요청할 수도 있어요.
+- **재부팅 후 자동으로 Visual Studio가 열릴 수 있음** (닫아도 됨!)
+
+---
+
+## 🎉 이로써 컴퓨터에 **C++ 컴파일러(MSVC)**가 설치 완료!
+
+---
+
+# ✅ 2단계: Visual Studio Code 설치
+
+---
+
+### ✔ 1. [VS Code 공식 홈페이지](https://code.visualstudio.com) 접속
+
+- 주소: https://code.visualstudio.com
+
+---
+
+### ✔ 2. 운영체제에 맞는 VS Code 설치
+
+- Windows용 다운로드 → 설치 파일 실행 → 설치 완료
+
+---
+
+### ✔ 3. VS Code 실행
+
+- 처음 실행하면 아주 간단한 화면이 나옴
+
+---
+
+# ✅ 3단계: C++ 개발 확장팩 설치 (VS Code에서)
+
+---
+
+### ✔ 1. 좌측 메뉴에서 퍼즐 아이콘(확장) 클릭
+
+- 또는 `Ctrl + Shift + X` 누르기
+
+---
+
+### ✔ 2. 검색창에 `C++` 입력
+
+- **C/C++ (by Microsoft)** 확장 설치  
+  👉 파란색 “설치” 버튼 클릭
+
+---
+
+### ✔ 3. 추가 추천 확장 (선택사항)
+- CMake Tools (필요시)
+- Code Runner (간단 실행용)
+
+---
+
+# ✅ 4단계: C++ 파일 생성 및 빌드 환경 설정
+
+---
+
+### ✔ 1. 폴더 열기
+
+- `파일 > 폴더 열기` → 원하는 폴더 선택  
+  (C++ 파일을 저장할 폴더)
+
+---
+
+### ✔ 2. 새 파일 만들기
+
+- `main.cpp` 같은 이름으로 새 파일 생성  
+- 예시 코드 입력:
 ```cpp
 #include <iostream>
-using namespace std;
-
 int main() {
-    cout << "Hello, C++ from VS Code!" << endl;
+    std::cout << "Hello, C++!\n";
     return 0;
 }
 ```
 
 ---
 
-## ✅ 4. 프로그램 실행하기
+### ✔ 3. 컴파일러 경로 자동 인식 확인
 
-### 방법 1: **터미널에서 직접 실행**
-1. 터미널 열기: `Ctrl + ~`
-2. 아래 명령어 입력:
-```bash
-g++ hello.cpp -o hello.exe
-./hello.exe
-```
-
-### 방법 2: **Code Runner로 실행**
-- `Ctrl + Alt + N` 누르기  
-  (단, 이 방법은 Code Runner가 설치되어 있어야 함)
+- 파일 저장 → VS Code 오른쪽 아래에 “컴파일러 설치됨” 문구가 보일 수도 있음
 
 ---
 
-## 🎉 잘 되면 콘솔에:
+### ✔ 4. 빌드/실행을 위한 `tasks.json` 설정 (한 번만 설정)
+
+1. 메뉴에서 `Terminal > Configure Tasks...` 클릭  
+2. **“Create tasks.json file from template” 선택**  
+3. **“Others” 선택**  
+4. 아래와 같이 수정:
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build C++",
+      "type": "shell",
+      "command": "cl",
+      "args": [
+        "/EHsc",
+        "main.cpp"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
 ```
-Hello, C++ from VS Code!
-```
-가 출력됩니다!
+
+💡 위에서 `cl`은 MSVC 컴파일러이며, `main.cpp`는 파일 이름입니다.
 
 ---
 
-## 💡 팁
-- `tasks.json`, `launch.json` 등을 사용하면 디버깅도 가능하지만, 처음엔 위 방식만 알아도 충분합니다.
-- C++ 문법 연습은 위 방식으로 충분히 가능해요!
+### ✔ 5. 실행 방법
 
-필요하면 디버깅 방법이나 `tasks.json` 설정도 도와줄게요 🙂  
-궁금한 점 있어?
+1. `Ctrl + Shift + B` → 빌드 시작  
+2. `main.exe`가 생성됨 → **터미널에 직접 실행 명령 입력:**
+```
+main
+```
+
+✔ 또는 Code Runner 확장 설치 후 오른쪽 위 ▶ 버튼으로 실행
+
+---
+
+## 🎯 최종 결과
+
+- **VS Code에서 C++ 파일을 작성하고**
+- **Visual Studio Community에서 제공한 컴파일러로 빌드/실행 가능!**
+
+---
+
+# 📝 요약 순서
+
+| 단계 | 설명 |
+|------|------|
+| 1단계 | Visual Studio Community 설치 (C++ 포함 선택) |
+| 2단계 | VS Code 설치 |
+| 3단계 | C++ 확장 설치 (C/C++ by Microsoft) |
+| 4단계 | `main.cpp` 작성 및 빌드 설정 |
+| 5단계 | `Ctrl + Shift + B`로 빌드, `main` 명령으로 실행 |
+
+---
+
+필요하시면 MinGW 컴파일러 기반 설치법도 정리해드릴 수 있어요! 😊
