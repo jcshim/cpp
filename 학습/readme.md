@@ -52,7 +52,7 @@
 - 벡터  
 - [람다 함수](ramda.md)  
 - 범위 기반 for 루프 (`for (auto x : container)`)  
-- 초기화 리스트 (`initializer_list`)  
+- [초기화 리스트 (`initializer_list`)](initializer_list.md)
 
 ---
 
