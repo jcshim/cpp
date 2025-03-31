@@ -25,7 +25,7 @@
 - 복사 생성자  
 - new / delete  
 - this 포인터  
-- 정적 멤버 (`static`)  
+- [정적 멤버 (`static`)](static.md)
 - friend 함수 / 클래스  
 
 ---
