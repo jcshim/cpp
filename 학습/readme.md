@@ -50,7 +50,7 @@
 ## 🧾 5. **표준 템플릿 라이브러리 (STL) 및 함수형**
 - STL  
 - 벡터  
-- 람다 함수  
+- [람다 함수](ramda.md)  
 - 범위 기반 for 루프 (`for (auto x : container)`)  
 - 초기화 리스트 (`initializer_list`)  
 
