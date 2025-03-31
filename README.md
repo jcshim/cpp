@@ -67,3 +67,7 @@ C언어 기초가 있는 컴퓨터공학과 2학년을 대상으로 한 15주 �
 ---
 
 이 계획은 학생들이 C++의 기본 문법부터 최신 기능, 그리고 실무 응용까지 단계적으로 학습할 수 있도록 구성되었습니다.
+
+vcvars64.bat 파일의 위치
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build
+
