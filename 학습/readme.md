@@ -26,7 +26,7 @@
 - new / delete  
 - this 포인터  
 - [정적 멤버 (`static`)](static.md)
-- friend 함수 / 클래스  
+- [friend 함수 / 클래스](friend.md)  
 
 ---
 
