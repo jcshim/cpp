@@ -25,9 +25,8 @@
 - 복사 생성자  
 - new / delete  
 - this 포인터  
+- [friend 함수 / 클래스](friend.md)
 - [정적 멤버 (`static`)](static.md)
-- [friend 함수 / 클래스](friend.md)  
-
 ---
 
 ## 🧠 3. **객체지향 심화**
