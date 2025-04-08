@@ -1,4 +1,38 @@
 ### 🔹 기본 개념
+```
+#include <iostream>
+using namespace std;
+
+class CPnt {
+private:
+    int x, y;
+
+public:
+    // 생성자
+    CPnt(int x = 0, int y = 0) : x(x), y(y) {}
+
+    // + 연산자 오버로딩
+    CPnt operator+(const CPnt& other) const {
+        return CPnt(x + other.x, y + other.y);
+    }
+
+    // 출력 함수
+    void display() const {
+        cout << "(" << x << ", " << y << ")" << endl;
+    }
+};
+
+int main() {
+    CPnt p1(3, 4);
+    CPnt p2(1, 2);
+    CPnt p3 = p1 + p2;  // + 연산자 사용
+
+    cout << "p1 + p2 = ";
+    p3.display();
+
+    return 0;
+}
+```
 
 - **variable**  
   값을 저장하는 메모리 공간의 이름(예: `int x = 10;`에서 `x`).
