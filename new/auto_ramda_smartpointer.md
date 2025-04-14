@@ -23,8 +23,9 @@
 ### **활동 아이디어**
 - **람다로 문제 해결하기**: 학생들에게 간단한 문제를 주고, 이를 람다 표현식을 사용해 해결하도록 유도한다.
   - 예: 숫자 배열에서 짝수만 출력하는 프로그램 작성.
-    ```cpp
-    #include <iostream>
+
+```cpp
+#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -38,6 +39,7 @@ int main() {
     printEvens(nums);
     return 0;
 }
+```
 3. 스마트 포인터(smart pointer)
 학습 목표
 메모리 관리의 중요성 이해
