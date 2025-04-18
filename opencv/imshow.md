@@ -1,3 +1,5 @@
+Opencv4.2 Nuget설치
+
 ```
 #include <opencv2/opencv.hpp>
 
