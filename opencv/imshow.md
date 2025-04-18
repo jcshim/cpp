@@ -1,3 +1,4 @@
+```
 #include <opencv2/opencv.hpp>
 
 int main()
@@ -11,3 +12,4 @@ int main()
     cv::waitKey(0); // 키 입력 기다리기 (무한 대기)
     return 0;
 }
+```
