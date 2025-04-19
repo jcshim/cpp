@@ -22,7 +22,8 @@ int main() {
 ```
 
 
-## [우클릭 → 다른 이름으로 저장(UTF8): haarcascades/haarcascade_frontalface_default.xml](https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml)
+## [haarcascade_frontalface_default.xml] (https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml) 복사해서 
+## "haarcascade_frontalface_default.xml" 이름으로 저장(UTF8)
 
 ```
 #include<OpenCV2/openCV.hpp>
