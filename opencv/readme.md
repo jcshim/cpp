@@ -1,7 +1,7 @@
 좋은 질문 계속 이어가네요!
 
-**OpenCV (Open Source Computer Vision Library)**는  
-**컴퓨터 비전(Computer Vision)**과 **이미지 처리(Image Processing)**를 쉽게 할 수 있도록 만들어진  
+**OpenCV (Open Source Computer Vision Library)** 는  
+**컴퓨터 비전(Computer Vision)** 과 **이미지 처리(Image Processing)** 를 쉽게 할 수 있도록 만들어진  
 **오픈소스 라이브러리**입니다.
 
 ---
