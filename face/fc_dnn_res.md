@@ -95,8 +95,17 @@ int main()
     return 0;
 }
 ```
+## 📍 필수 모델 파일 준비하기
+주신 코드에서는 **모델 파일**이 필요합니다:
 
-**※ `deploy.prototxt`와 `res10_300x300_ssd_iter_140000.caffemodel` 파일은 실행파일(.exe)과 같은 폴더에 복사해두세요.**
+| 파일명 | 설명 |
+|:---|:---|
+| `deploy.prototxt` | 네트워크 구조 정의 파일 |
+| `res10_300x300_ssd_iter_140000.caffemodel` | 학습된 가중치 파일 |
+
+### 다운로드 링크:
+- [`deploy.prototxt`](https://github.com/opencv/opencv/blob/4.x/samples/dnn/face_detector/deploy.prototxt)
+- [`res10_300x300_ssd_iter_140000.caffemodel`](https://github.com/opencv/opencv_3rdparty/raw/dnn_samples_face_detector_20170830/res10_300x300_ssd_iter_140000.caffemodel)
 
 ---
 
