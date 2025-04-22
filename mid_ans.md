@@ -78,3 +78,71 @@ int main() {
     return 0;
 }
 ```
+
+### 25. `input.txt` 읽고 출력, 실패시 예외 발생
+```cpp
+#include <iostream>
+#include <fstream>
+#include <stdexcept>
+using namespace std;
+
+int main() {
+    ifstream file("input.txt");
+    if (!file) throw runtime_error("파일 열기 실패");
+
+    string line;
+    while (getline(file, line)) {
+        cout << line << endl;
+    }
+    return 0;
+}
+```
+
+---
+
+### 26. `CPnt` 클래스 덧셈 연산자 오버로딩
+```cpp
+#include <iostream>
+using namespace std;
+
+class CPnt {
+public:
+    int x, y;
+    CPnt(int a = 0, int b = 0) : x(a), y(b) {}
+
+    CPnt operator+(const CPnt& other) const {
+        return CPnt(x + other.x, y + other.y);
+    }
+};
+
+int main() {
+    CPnt p1(1, 2), p2(3, 4);
+    CPnt p3 = p1 + p2;
+    cout << p3.x << ", " << p3.y << endl;
+    return 0;
+}
+```
+
+---
+
+### 27. `unique_ptr` 배열로 2차원 좌표 저장 및 출력
+```cpp
+#include <iostream>
+#include <memory>
+using namespace std;
+
+struct Point {
+    int x, y;
+    Point(int a, int b) : x(a), y(b) {}
+};
+
+int main() {
+    unique_ptr<Point[]> points(new Point[3] { {1,2}, {3,4}, {5,6} });
+
+    for (int i = 0; i < 3; ++i)
+        cout << points[i].x << ", " << points[i].y << endl;
+
+    return 0;
+}
+```
+
