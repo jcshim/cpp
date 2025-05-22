@@ -1,40 +1,7 @@
-```
-#include <opencv2/opencv.hpp>
-#include <opencv2/dnn.hpp>
-#include <iostream>
-using namespace cv;
-using namespace dnn;
-using namespace std;
+# 숫자인식
 
-int main() {
-    // 모델 로드 (ONNX 또는 Caffe 등)
-    Net net = readNetFromONNX("d:/mnist-12.onnx");
-
-    // 입력 이미지 로드 (예: 숫자 5 이미지)
-    Mat img = imread("d:/8.png", IMREAD_GRAYSCALE); // 흑백 이미지
-
-    // 전처리: 28x28 리사이즈, float 변환, 정규화
-    resize(img, img, Size(28, 28));
-    img.convertTo(img, CV_32F, 1.0 / 255);  // 0~1로 정규화
-    Mat blob = blobFromImage(img);          // (1, 1, 28, 28)
-
-    // 모델 입력 및 추론
-    net.setInput(blob);
-    Mat output = net.forward();
-
-    // 결과 해석
-    Point classId;
-    double confidence;
-    minMaxLoc(output, 0, &confidence, 0, &classId);
-    cout << "예측된 숫자: " << classId.x << " (신뢰도: " << confidence << ")" << endl;
-
-    return 0;
-}
-```
-
-좋습니다! 아래는 **Visual Studio에서 NuGet으로 OpenCV 4.2를 설치**하고,  
-**ONNX 모델(`mnist-8.onnx`)과 28x28 숫자 이미지(`8.png`)**를 사용하여 숫자를 인식하는  
-**C++ 전용 초보자용 매뉴얼**입니다.
+**Visual Studio에서 NuGet으로 OpenCV 4.2를 설치**하고,  
+**ONNX 모델(`mnist-8.onnx`)과 28x28 숫자 이미지(`8.png`)**를 사용하여 숫자를 인식
 
 ---
 
@@ -82,6 +49,7 @@ int main() {
 ### 🔹 8.png 이미지 준비 (28x28 픽셀, 흑백)
 프람프트: 필기체 숫자 8 만들어줘
 
+또는 8.png, 3.png 다운로드
 ---
 
 ## ✅ 4단계: C++ 전체 코드 작성 (`main.cpp`)
@@ -97,8 +65,8 @@ using namespace std;
 
 int main() {
     // 모델 경로 설정 (자신의 경로로 수정)
-    string modelPath = "D:/mnist-8.onnx";
-    string imagePath = "D:/8.png";
+    string modelPath = "D:/mnist-8.onnx";  // 저장경로
+    string imagePath = "D:/8.png";  // 저장경로
 
     // 모델 로드
     Net net = readNetFromONNX(modelPath);
