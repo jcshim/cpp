@@ -49,7 +49,7 @@ int main() {
 |--------------|------|
 | Visual Studio | 2022 이상 권장 |
 | OpenCV       | NuGet으로 `opencv.windows` 설치 |
-| ONNX 모델   | `mnist-8.onnx` ([다운로드 링크]([https://github.com/onnx/models/raw/main/vision/classification/mnist/model/mnist-8.onnx]))) |
+| ONNX 모델   | `mnist-8.onnx` ([다운로드 링크](https://github.com/onnx/models/raw/main/vision/classification/mnist/model/mnist-8.onnx)) |
 | 테스트 이미지 | 28x28 흑백 PNG, 이름은 `8.png` |
 
 ---
