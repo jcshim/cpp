@@ -34,29 +34,43 @@ float cosineSimilarity(const Mat& a, const Mat& b) {
 }
 
 // 얼굴 특징 추출 함수
-Mat extractFeature(Net& recognizer, const Mat& face) {
+Mat extractFeature(cv::dnn::Net& recognizer, const Mat& face) {
     Mat blob = dnn::blobFromImage(face, 1.0 / 255.0, Size(112, 112), Scalar(), true, false);
     recognizer.setInput(blob);
-    return recognizer.forward();  // (1 x 128)
+    return recognizer.forward().clone();  // clone() 추가로 안전하게 사용
 }
 
 int main() {
-    // 모델 로드
-    Net detector = dnn::readNetFromCaffe("deploy.prototxt", "res10_300x300_ssd_iter_140000_fp16.caffemodel");
-    Net recognizer = dnn::readNetFromONNX("face_recognition_sface_2021dec.onnx");
+    // 얼굴 검출 모델 로드 (Caffe)
+    dnn::Net detector = dnn::readNetFromCaffe(
+        "d:/deploy.prototxt",
+        "d:/res10_300x300_ssd_iter_140000_fp16.caffemodel");
 
-    // 등록된 얼굴 DB
+    if (detector.empty()) {
+        cerr << "Error loading detector model!" << endl;
+        return -1;
+    }
+
+    // 얼굴 인식 모델 로드 (ONNX)
+    dnn::Net recognizer = dnn::readNetFromONNX("d:/face_recognition_sface_2021dec.onnx");
+    if (recognizer.empty()) {
+        cerr << "Error loading recognizer model!" << endl;
+        return -1;
+    }
+
+    // 1. 등록 얼굴 DB (이름 → 특징 벡터)
     map<string, Mat> faceDB;
-
-    // 얼굴 등록 (예: 이미지 파일 2개)
     vector<pair<string, string>> registration = {
-        {"Alice", "alice.jpg"},
-        {"Bob", "bob.jpg"}
+        {"ko", "d:/ko.jpg"},
+        {"shim", "d:/shim.jpg"}
     };
 
-    for (auto& [name, path] : registration) {
-        Mat img = imread(path);
-        if (img.empty()) continue;
+    for (auto& [name, imgPath] : registration) {
+        Mat img = imread(imgPath);
+        if (img.empty()) {
+            cerr << "Could not load: " << imgPath << endl;
+            continue;
+        }
 
         // 얼굴 검출
         Mat blob = dnn::blobFromImage(img, 1.0, Size(300, 300), Scalar(104, 177, 123));
@@ -66,60 +80,65 @@ int main() {
 
         for (int i = 0; i < detMat.rows; ++i) {
             float confidence = detMat.at<float>(i, 2);
-            if (confidence > 0.5) {
-                int x1 = int(detMat.at<float>(i, 3) * img.cols);
-                int y1 = int(detMat.at<float>(i, 4) * img.rows);
-                int x2 = int(detMat.at<float>(i, 5) * img.cols);
-                int y2 = int(detMat.at<float>(i, 6) * img.rows);
+            if (confidence > 0.5f) {
+                int x1 = static_cast<int>(detMat.at<float>(i, 3) * img.cols);
+                int y1 = static_cast<int>(detMat.at<float>(i, 4) * img.rows);
+                int x2 = static_cast<int>(detMat.at<float>(i, 5) * img.cols);
+                int y2 = static_cast<int>(detMat.at<float>(i, 6) * img.rows);
                 Rect faceRect(Point(x1, y1), Point(x2, y2));
                 Mat face = img(faceRect).clone();
 
                 faceDB[name] = extractFeature(recognizer, face);
-                break;  // 첫 번째 얼굴만 사용
+                break;
             }
         }
     }
 
-    // 테스트 이미지 로드
-    Mat test = imread("test.jpg");
-    if (test.empty()) return -1;
+    // 2. 테스트 이미지 로딩
+    Mat testImg = imread("d:/shim1.jpg");  // 경로 수정
+    if (testImg.empty()) {
+        cerr << "Failed to load test image!" << endl;
+        return -1;
+    }
 
     // 얼굴 검출
-    Mat testBlob = dnn::blobFromImage(test, 1.0, Size(300, 300), Scalar(104, 177, 123));
-    detector.setInput(testBlob);
-    Mat testDetections = detector.forward();
-    Mat testMat(testDetections.size[2], testDetections.size[3], CV_32F, testDetections.ptr<float>());
+    Mat blob = dnn::blobFromImage(testImg, 1.0, Size(300, 300), Scalar(104, 177, 123));
+    detector.setInput(blob);
+    Mat detections = detector.forward();
+    Mat detMat(detections.size[2], detections.size[3], CV_32F, detections.ptr<float>());
 
-    for (int i = 0; i < testMat.rows; ++i) {
-        float confidence = testMat.at<float>(i, 2);
-        if (confidence > 0.5) {
-            int x1 = int(testMat.at<float>(i, 3) * test.cols);
-            int y1 = int(testMat.at<float>(i, 4) * test.rows);
-            int x2 = int(testMat.at<float>(i, 5) * test.cols);
-            int y2 = int(testMat.at<float>(i, 6) * test.rows);
+    for (int i = 0; i < detMat.rows; ++i) {
+        float confidence = detMat.at<float>(i, 2);
+        if (confidence > 0.5f) {
+            int x1 = static_cast<int>(detMat.at<float>(i, 3) * testImg.cols);
+            int y1 = static_cast<int>(detMat.at<float>(i, 4) * testImg.rows);
+            int x2 = static_cast<int>(detMat.at<float>(i, 5) * testImg.cols);
+            int y2 = static_cast<int>(detMat.at<float>(i, 6) * testImg.rows);
             Rect faceRect(Point(x1, y1), Point(x2, y2));
-            rectangle(test, faceRect, Scalar(0, 255, 0), 2);
+            Mat face = testImg(faceRect).clone();
 
-            Mat face = test(faceRect).clone();
-            Mat testFeat = extractFeature(recognizer, face);
+            // 특징 추출
+            Mat testFeature = extractFeature(recognizer, face);
 
             // DB와 유사도 비교
             string matched = "Unknown";
-            float maxSim = 0.0;
+            float maxSim = 0.0f;
 
-            for (auto& [name, feat] : faceDB) {
-                float sim = cosineSimilarity(testFeat, feat);
-                if (sim > maxSim && sim > 0.5) {  // threshold 조정 가능
+            for (auto& [name, regFeature] : faceDB) {
+                float sim = cosineSimilarity(testFeature, regFeature);
+                if (sim > maxSim && sim > 0.6f) {
                     maxSim = sim;
                     matched = name;
                 }
             }
 
-            putText(test, matched, Point(x1, y1 - 10), FONT_HERSHEY_SIMPLEX, 1, Scalar(255, 0, 0), 2);
+            rectangle(testImg, faceRect, Scalar(0, 255, 0), 2);
+            putText(testImg, matched, Point(x1, y1 - 10), FONT_HERSHEY_SIMPLEX, 0.9, Scalar(0, 0, 255), 2);
         }
     }
 
-    imshow("Face Recognition", test);
+    imshow("Face Recognition", testImg);
+    imwrite("d:/result.jpg", testImg);  // 결과 저장도 추가
     waitKey(0);
     return 0;
 }
@@ -132,12 +151,12 @@ int main() {
 ```
 프로젝트/
 │
-├─ deploy.prototxt
-├─ res10_300x300_ssd_iter_140000_fp16.caffemodel
-├─ face_recognition_sface_2021dec.onnx
-├─ alice.jpg   ← 등록용 이미지
-├─ bob.jpg
-├─ test.jpg    ← 인식 테스트 이미지
+├─ d:/deploy.prototxt
+├─ d:/res10_300x300_ssd_iter_140000_fp16.caffemodel
+├─ d:/face_recognition_sface_2021dec.onnx
+├─ d:/shim.jpg   ← 등록용 이미지
+├─ d:/ko.jpg
+├─ d:/shim1.jpg    ← 인식 테스트 이미지
 ```
 
 ---
