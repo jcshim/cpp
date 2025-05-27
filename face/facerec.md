@@ -42,9 +42,8 @@ Mat extractFeature(cv::dnn::Net& recognizer, const Mat& face) {
 
 int main() {
     // 얼굴 검출 모델 로드 (Caffe)
-    dnn::Net detector = dnn::readNetFromCaffe(
-        "d:/deploy.prototxt",
-        "d:/res10_300x300_ssd_iter_140000_fp16.caffemodel");
+    dnn::Net detector = 
+    dnn::readNetFromCaffe("d:/deploy.prototxt", "d:/res10_300x300_ssd_iter_140000.caffemodel");
 
     if (detector.empty()) {
         cerr << "Error loading detector model!" << endl;
@@ -61,8 +60,8 @@ int main() {
     // 1. 등록 얼굴 DB (이름 → 특징 벡터)
     map<string, Mat> faceDB;
     vector<pair<string, string>> registration = {
-        {"ko", "d:/ko.jpg"},
-        {"shim", "d:/shim.jpg"}
+        {"Ko", "d:/ko.jpg"},
+        {"Shim", "d:/shim.jpg"}
     };
 
     for (auto& [name, imgPath] : registration) {
