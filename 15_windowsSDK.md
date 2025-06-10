@@ -91,7 +91,7 @@ int WINAPI WinMain(HINSTANCE h, HINSTANCE, LPSTR, int) {
 
 ---
 
-## ✅ 요약 정리 (슬라이드용 문구)
+## ✅ 요약 정리
 
 > Windows SDK는 Windows 운영체제에서 C/C++ 기반 애플리케이션을 개발하기 위한 모든 개발 도구(헤더, 라이브러리, 컴파일러, 문서 등)를 포함한 통합 개발 환경이다.
 
